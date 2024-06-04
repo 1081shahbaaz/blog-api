@@ -1,0 +1,19 @@
+version: '2.2'
+
+services:
+
+ nginx:
+  build: 
+    context: .
+    dockerfile: Dockerfile.nginx
+  ports:
+    - 8080:80
+  depends_on:
+    - web
+  restart: "always"
+ 
+ web:
+  build: .
+  expose: 
+   - 8000
+  restart: "always"
