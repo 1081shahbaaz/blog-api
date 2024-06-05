@@ -1,19 +1,19 @@
 version: '2.2'
 
+# Defining the compose version
 services:
 
  nginx:
-  build: 
-    context: .
-    dockerfile: Dockerfile.nginx
+  build: ./nginx
   ports:
-    - 8080:80
+    - 8687:80
   depends_on:
-    - web
+    - myproject
   restart: "always"
  
- web:
-  build: .
+ myproject:
+  build: ./BlogApi
+  command: sh -c "gunicorn BlogApi.wsgi:application --bind 0.0.0.0:8000"
   expose: 
    - 8000
   restart: "always"
